@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+	<title>Deck of Cards</title>
+  <script type="text/javascript" src='http://code.jquery.com/jquery-2.2.2.js'></script>
+  <script>
+    function stack(){
+      var deck = [];
+      // var cards = [];
+    }
+
+    stack.prototype.createDeck = function(){
+      var suites = ['s','d','c','h'];
+      var names = ['1','2','3','4','5','6','7','8','9','10','j','q','k'];
+      this.deck = [];
+      for(var i=0; i<suites.length; i++){
+        for(var j=0; j<names.length; j++){
+          this.deck.push(suites[i] + names[j]);
+        }
+      }
+      return this;
+    }
+
+    stack.prototype.shuffle = function(){
+      var temp;
+      for(var i=0; i<this.deck.length; i++){
+        var j = Math.floor(Math.random() * (i + 1));
+        temp = this.deck[i];
+        this.deck[i] = this.deck[j];
+        this.deck[j] = temp;
+      }
+      return this;
+    }
+
+    stack.prototype.reset = function(){
+      this.createDeck();
+      return this;
+    }
+
+    stack.prototype.deal = function(){
+      if(this.deck.length > 0){
+        return this.deck.pop();
+      }
+      return null;
+      // this.cards.push(this.deck.pop());
+      // console.log(this.cards);
+      // return this;
+    }
+
+    function player(){
+      var name;
+      this.hands = [];
+    }
+
+    player.prototype.name =  function(name){
+      this.name = name;
+      // console.log("The player is "+name);
+      return this;
+    }
+
+    player.prototype.hand = function(){
+      // console.log(this.hands);
+      for(var i=0; i<this.hands.length; i++){
+        document.write("<img src='cards-png/"+this.hands[i]+".png' width='71' height='96' hspace='5' vspace='5'>");
+      }
+      document.write("<br>");
+      return this;
+    }
+
+    player.prototype.takeCard = function(deck){
+      this.hands.push(deck.deal());
+      return this;
+    }
+
+    player.prototype.discard = function(){
+      this.hand = [];
+      return this;
+    }
+
+    var deck = new stack();
+    deck.createDeck()
+    // console.log(deck.createDeck());
+    console.log(deck.shuffle());
+    // console.log(deck.reset());
+    // console.log(deck.deal());
+    var test = new player();
+    test.name('Tyler');
+    // console.log(test.name('Tyler'));
+    test.takeCard(deck).takeCard(deck);
+    document.write("<h3>Tyler's hand</h3>");
+    console.log(test.hand());
+
+    var test2 = new player();
+    test2.name('KB');
+    test2.takeCard(deck).takeCard(deck);
+    document.write("<h3>KB's hand</h3>");
+    console.log(test2.hand());
+  </script>
+</head>
+<body>
+</body>
+</html>

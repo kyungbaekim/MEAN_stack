@@ -1,0 +1,8 @@
+<div  ng-controller='NamesController'>
+  <div class='edit'>
+    <form ng-repeat='name in names | filter:{_id: user_id.id}'>
+      <input id='name' type='text' ng-model='name.name'>
+      <input type='submit' value='Update' ng-click='updateName(name)'>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,68 @@
+<html>
+<head>
+  <title>Chatroom</title>
+  <script type="text/javascript" src='http://code.jquery.com/jquery-2.2.2.js'></script>
+  <script type ="text/javascript" src="/socket.io/socket.io.js"></script>
+  <script type ="text/javascript">
+    $(document).ready(function (){
+      var name = prompt("Please enter your name");
+      if (name != null) {
+        // this triggers the connection event in our server!
+        var socket = io.connect();
+        socket.emit("got_a_new_user", {name: name});
+        socket.on("new_user", function(data){
+          console.log("new user entered: ",data.name);
+          $('.chatroom').append("<div class='chat' id='" + data.name + "'><table><tr><th>" + data.name + "</th></tr><tr><td height='250px'></td></tr></table>");
+          $('#'+data.name).hide();
+          $('#'+data.name).fadeIn(3000);
+        });
+        socket.on("existing_users", function(data){
+          // console.log(data.users);
+          for(key in data.users){
+            $('.chatroom').append("<div class='chat' id='" + key + "'><table><tr><th>" + key + "</th></tr><tr><td height='250px'></td></tr></table>");
+          }
+        });
+        $('#disconnect').click(function(){
+          console.log(name);
+          socket.emit("disconnect_request", {name: name});
+          socket.on("server_response", function(data){
+            console.log(data.response);
+            socket.disconnect();
+          });
+        });
+        socket.on("user_disconnet", function(data){
+          console.log(data.response);
+          $('#'+data.name).fadeOut(3000);
+        });
+      }
+    })
+  </script>
+  <style>
+  .wrapper{
+    width: 100%;
+    /*margin: 0px auto;*/
+  }
+  table{
+    padding: 0px;
+    margin: 0px;
+    width: 300px;
+    border: 1px solid grey;
+  }
+  th{
+    background-color: lightgrey;
+  }
+  .chat{
+    display: inline-block;
+    width: 300px;
+    height: 300px;
+    margin: 20px;
+  }
+  </style>
+</head>
+<body>
+  <div class='wrapper'>
+    <div class='chatroom'></div>
+    <button id='disconnect'>Disconnect</button>
+  </div>
+</body>
+</html>

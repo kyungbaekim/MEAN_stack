@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>1955 API</title>
+    <script type="text/javascript" src='http://code.jquery.com/jquery-2.2.2.js'></script>
+    <script>
+      $(document).ready(function(){
+        $.get('/', function(res) {
+          console.log(res);
+          for(var i=0; i<res.length; i++){
+            $('body').append("<p>"+res[i].name+"</p>");
+          }
+        }, 'json');
+        return false;
+      });
+    </script>
+  </head>
+  <body>
+  </body>
+</html>

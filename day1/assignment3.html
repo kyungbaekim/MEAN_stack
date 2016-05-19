@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+	<title>MEAN assignment1</title>
+  <script>
+    // var person = {};
+    // person = {
+    //   name: 'Trey',
+    //   distance_traveled: 0,
+    //   say_name: function(){
+    //     // alert(this.name);
+    //     console.log(this.name);
+    //   },
+    //   say_something: function(str){
+    //     console.log(this.name+" says \'"+str+"\'");
+    //   },
+    //   walk: function(){
+    //     this.distance_traveled += 3;
+    //     console.log(this.name + " is walking and the distnace traveled is "+ this.distance_traveled);
+    //   },
+    //   run: function(){
+    //     this.distance_traveled += 10;
+    //     console.log(this.name + " is running and the distnace traveled is "+ this.distance_traveled);
+    //   },
+    //   crawl: function(){
+    //     this.distance_traveled += 1;
+    //     console.log(this.name + " is crawling and the distnace traveled is "+ this.distance_traveled);
+    //   }
+    // }
+    // person.say_name();
+    // person.say_something('thank you');
+    // person.walk();
+    // person.run();
+    // person.crawl();
+
+    var person = {}
+    function personConstructor(str){
+      person = {
+        name: str,
+        distance_traveled: 0,
+        say_name: function(){
+          // alert(this.name);
+          console.log(person.name);
+        },
+        say_something: function(str){
+          console.log(person.name+" says \'"+str+"\'");
+        },
+        walk: function(){
+          person.distance_traveled += 3;
+          console.log(person.name + " is walking and the distnace traveled is "+ person.distance_traveled);
+        },
+        run: function(){
+          person.distance_traveled += 10;
+          console.log(person.name + " is running and the distnace traveled is "+ person.distance_traveled);
+        },
+        crawl: function(){
+          person.distance_traveled += 1;
+          console.log(person.name + " is crawling and the distnace traveled is " + person.distance_traveled);
+        }
+      }
+    }
+    personConstructor('KB');
+    console.log(person);
+    person.say_name();
+
+    function ninjaConstructor(str){
+      ninja = {
+        name: str,
+        cohort: 'Stack II',
+        belt_level: 'Yellow-belt',
+        distance_traveled: 0,
+        say_name: function(){
+          // alert(this.name);
+          console.log(ninja.name);
+        },
+        say_something: function(str){
+          console.log(ninja.name+" says \'"+str+"\'");
+        },
+        walk: function(){
+          ninja.distance_traveled += 3;
+          console.log(ninja.name + " is walking and the distnace traveled is "+ ninja.distance_traveled);
+        },
+        run: function(){
+          ninja.distance_traveled += 10;
+          console.log(ninja.name + " is running and the distnace traveled is "+ ninja.distance_traveled);
+        },
+        crawl: function(){
+          ninja.distance_traveled += 1;
+          console.log(ninja.name + " is crawling and the distnace traveled is " + ninja.distance_traveled);
+        },
+        levelUp: function(){
+          if(ninja.belt_level == 'Yellow-belt'){
+            ninja.belt_level = 'Red-belt';
+          }
+          else{
+            ninja.belt_level = 'Black-belt';
+          }
+        }
+      }
+      return ninja;
+    }
+    var Tyler = ninjaConstructor('Tyler');
+    console.log(Tyler);
+    Tyler.levelUp();
+    console.log(Tyler);
+  </script>
+</head>
+<body>
+</body>
+</html>

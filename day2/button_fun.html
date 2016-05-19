@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Button fun</title>
+    <script type="text/javascript" src='http://code.jquery.com/jquery-2.2.2.js'></script>
+    <script>
+      $(document).ready(function(){
+        $(document).on('click', 'button', function(){
+          $(this).toggleClass('cool_red cool_blue');
+        });
+        $(document).on('mouseover', 'button', function(){
+          $(this).css('background-color','green');
+        });
+
+        $(document).on('mouseout', 'button', function(){
+          $(this).css('background-color','');
+        });
+        $('body').on('keypress', function(e) {
+        	if(e.keyCode==13){
+            $('body').append("<p><button class='cool_blue'>Click Me!!!</button></p>");
+        	}
+        });
+      });
+    </script>
+    <style>
+      .cool_red{
+        background-color: red;
+        color: white;
+        width: 300px;
+        height: 100px;
+        border-radius: 10px;
+        font-size: 30px;
+        padding: 0px;
+        margin: 5px;
+      }
+      .cool_blue{
+        background-color: blue;
+        color: white;
+        width: 300px;
+        height: 100px;
+        border-radius: 10px;
+        font-size: 30px;
+        padding: 0px;
+        margin: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <button class='cool_blue'>Click Me!!!</button>
+  </body>
+</html>

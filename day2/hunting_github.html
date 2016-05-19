@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Hunting GitHub</title>
+    <script type="text/javascript" src='http://code.jquery.com/jquery-2.2.2.js'></script>
+    <script>
+    $(document).ready(function(){
+      $(document).on('click', 'button', function(){
+      var url = 'https://api.github.com/users/kyungbaekim';
+      $.get(url, displayName)
+      });
+    });
+
+    function displayName(data){
+      var name = data.name;
+      $('button').after("<p class='name'>My name is "+name+"!</p>");
+    }
+    </script>
+    <style>
+    .name{
+      font-size: 30px;
+    }
+    .cool_blue{
+      background-color: blue;
+      color: white;
+      width: 300px;
+      height: 100px;
+      border-radius: 10px;
+      font-size: 30px;
+      padding: 0px;
+      margin: 5px;
+    }
+    </style>
+  </head>
+  <body>
+    <button class='cool_blue'>Click Me!!!</button>
+  </body>
+</html>

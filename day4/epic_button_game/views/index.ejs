@@ -1,0 +1,73 @@
+<html>
+<head>
+  <title>Survey Form</title>
+  <script type="text/javascript" src='http://code.jquery.com/jquery-2.2.2.js'></script>
+  <script type ="text/javascript" src="/socket.io/socket.io.js"></script>
+  <script type ="text/javascript">
+    $(document).ready(function (){
+      // this triggers the connection event in our server!
+      var socket = io.connect();
+      $('#increase').click(function (){
+        socket.emit("increase_counter", {request: "increase the counter by 1!"});
+      });
+      socket.on('update_counter', function(data){
+        $('.counter').html('');
+        $('.counter').append("<h2>The button has been pushed " + data.counter + " time(s)</h2>");
+        console.log(data.response);
+      });
+      $('#reset').click(function (){
+        socket.emit("reset_counter", {request: "reset the counter to 0!"});
+      });
+      socket.on('reset_counter', function(data){
+        $('.counter').html('');
+        console.log(data.response);
+      });
+    })
+  </script>
+  <style>
+  .wrapper{
+    width: 500px;
+    margin: 0px auto;
+  }
+  .counter{
+    width: 100%;
+    height: 100px;
+    padding-top: 20px;
+    text-align: center;
+  }
+  .content{
+    width: 100%;
+    text-align: center;
+    margin-bottom: 100px;
+  }
+  .reset{
+    text-align: right;
+  }
+  #increase{
+    width: 220px;
+    height: 80px;
+    background-color: blue;
+    color: white;
+    border-radius: 30px;
+    font-size: 18px;
+  }
+  #reset{
+    width: 100px;
+    height: 30px;
+    background-color: red;
+    color: white;
+  }
+  </style>
+</head>
+<body>
+  <div class='wrapper'>
+    <div class='counter'></div>
+    <div class='content'>
+      <p>Push the button to update the count!</p>
+      <button id='increase'>Push the epic button</button>
+    </div>
+    <div class='reset'>
+      <button id='reset'>Reset count</button>
+  </div>
+</body>
+</html>

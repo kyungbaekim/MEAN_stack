@@ -1,0 +1,55 @@
+<html>
+<head>
+  <title>Mongoose Dashboard - Add</title>
+  <style>
+    .wrapper{
+      width: 500px;
+      margin: 0px auto;
+      text-align: center;
+    }
+    table{
+      margin: 0px auto;
+    }
+    .send{
+      margin-top: 10px;
+      margin-left: 105px;
+    }
+    .error{
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div class='wrapper'>
+    <div class='title'>
+      <h1>Add animal to your database</h1>
+    </div>
+    <div class='form'>
+      <form action='/animals' method='post'>
+        <table>
+          <tr>
+            <td>Name:</td>
+            <td><input type='text' name='name'></td>
+          </tr>
+          <tr>
+            <td>Description:</td>
+            <td><textarea name='description' rows=10 cols=30></textarea></td>
+          </tr>
+          <tr>
+            <td colspan='2' align=center>
+              <input class='send' type='submit' value='Add new animal!'>
+            </td>
+          </tr>
+        </table>
+        <% if(typeof(errors) != 'undefined' && errors != null){ %>
+          <br><table>
+          <% for(x in errors){ %>
+            <tr><td class='error'><%= errors[x].message %></td></tr>
+          <% } %>
+          </table>
+        <% } %>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

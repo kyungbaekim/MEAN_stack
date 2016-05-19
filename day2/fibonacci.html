@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Fib & Nacci</title>
+    <script>
+    function fib() {
+      var sum = 0;
+      var seed1 = 1;
+      var seed2 = 1;
+      function nacci() {
+        sum = seed1;
+        seed1 = seed2;
+        seed2 += sum;
+        console.log(sum);
+      }
+      return nacci;
+    }
+    var fibCounter = fib();
+    fibCounter() // should console.log "1"
+    fibCounter() // should console.log "1"
+    fibCounter() // should console.log "2"
+    fibCounter() // should console.log "3"
+    fibCounter() // should console.log "5"
+    fibCounter() // should console.log "8"
+    </script>
+  </head>
+  <body>
+
+  </body>
+</html>

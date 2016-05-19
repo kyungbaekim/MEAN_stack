@@ -1,0 +1,49 @@
+<html>
+<head>
+  <title>Quoting Dojo</title>
+  <style>
+    .wrapper{
+      width: 500px;
+      margin: 0px auto;
+    }
+    .send{
+      margin-right: 80px;
+    }
+  </style>
+</head>
+<body>
+  <div class='wrapper'>
+    <div class='title'>
+      <h1>Welcome to QuotingDojo</h1>
+    </div>
+    <div class='form'>
+      <form action='/quotes' method='post'>
+        <table>
+          <tr>
+            <td>Your name:</td>
+            <td><input type='text' name='name'></td>
+          </tr>
+          <tr>
+            <td valign=top>Your quote:</td>
+            <td>
+              <textarea rows='20' cols='50' name='quote'></textarea>
+            </td>
+          </tr>
+          <tr>
+            <td colspan='2' align=center>
+              <input class='send' type='submit' value='Add my quote!'>
+              <a href='/quotes'><input type='button' value='Skip to quotes!'></a>
+            </td>
+          </tr>
+          <% if(typeof(errors) != 'undefined') {%>
+            <tr><td colspan='2' height='20'></td></tr>
+            <% for(x in errors){ %>
+              <tr><td colspan='2' align=center><%= errors[x].message %></td></tr>
+          <% }
+          }%>
+        </table>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

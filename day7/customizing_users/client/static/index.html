@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html ng-app='users'>
+  <head>
+    <title>Customizing Users</title>
+    <!-- THESE TWO VERSIONS BELOW MUST MATCH!!!! -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-route.min.js"></script>
+    <script type="text/javascript" src='http://code.jquery.com/jquery-2.2.2.js'></script>
+    <script>
+    //  inject the ngRoute dependency in the module.
+    var users = angular.module('users', ['ngRoute']);
+    //  use the config method to set up routing:
+    users.config(function ($routeProvider) {
+      $routeProvider
+        .when('/',{
+            templateUrl: 'partials/customizeUsers.html'
+        })
+        .when('/list',{
+            templateUrl: 'partials/userList.html'
+        })
+        .otherwise({
+          redirectTo: '/'
+        });
+    });
+
+    users.factory('usersFactory', function(){
+      var users = [];
+      var factory = {};
+      return {
+        getUsers: function(callback){
+          callback(users);
+          return factory;
+        },
+        addUser: function(newData){
+          users.push(newData);
+        },
+        removeUser: function(user){
+          users.splice(users.indexOf(user), 1);
+          $('#fname').focus();
+        }
+      }
+    });
+
+    users.controller('CustomizeUsersController', function(usersFactory, $scope, $location){
+      $scope.users = [];
+      usersFactory.getUsers(function(data){
+        $scope.users = data;
+      });
+      $scope.addUser = function(){
+        usersFactory.addUser($scope.newUser);
+        console.log($location);
+        $location.url('list');
+      }
+      $scope.removeUser = function(user){
+        usersFactory.removeUser(user);
+      }
+    });
+
+    users.controller('UserListsController', function($scope, usersFactory){
+      $scope.users = [];
+      usersFactory.getUsers(function(data){
+        $scope.users = data;
+      });
+    });
+    </script>
+    <style>
+      .wrapper{
+        width: 500px;
+        margin: 0px auto;
+      }
+      .list table, .list tr, .list th, .list td{
+        border: 1px solid lightgrey;
+      }
+      .list table{
+        border-collapse: collapse;
+      }
+      .add{
+        margin-bottom: 20px;
+      }
+      .list th, .list td{
+        padding: 3px;
+        text-align: center;
+      }
+      .body{
+        margin-top: 20px;
+      }
+      a{
+        margin-left: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class='wrapper'>
+      <a href="#/">Customize Users</a> | <a href="#/list">User List</a>
+      <div class='body' ng-view="">
+      </div>
+    </div>
+  </body>
+</html>

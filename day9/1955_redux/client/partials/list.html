@@ -1,0 +1,19 @@
+<div  ng-controller='NamesController'>
+  <div class='add'>
+    <p><u>Add people who were born in 1955!</u></p>
+    <form>
+      <input id='name' type='text' ng-model='new_name.name', placeholder='enter name'>
+      <input type='submit' value='Submit' ng-click='addName()'>
+    </form>
+  </div>
+  <div class='list'>
+    <table>
+      <tr>
+        <th width=400>Name</th><th width=100>Action</th>
+      </tr>
+      <tr ng-repeat='name in names | filter: filter_name'>
+        <td ng-bind='name.name'></td><td align=center><a ng-click='removeName(name)'><button>Delete</button></a>&nbsp;<a href='#/edit/{{name._id}}'><button>Edit</button></a></td>
+      </tr>
+    </table>
+  </div>
+  </div>

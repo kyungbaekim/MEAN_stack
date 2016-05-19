@@ -1,0 +1,84 @@
+<html ng-app='user'>
+<head>
+  <title>Users Controller</title>
+  <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js'></script>
+  <script type="text/javascript" src='http://code.jquery.com/jquery-2.2.2.js'></script>
+  <script type='text/javascript'>
+
+    $(document).ready(function(){
+      $('#fname').focus();
+    });
+    var user = angular.module('user', []);
+    user.controller('usersController', function ($scope){
+      // we don't need a factory for this demo, it wouldn't make a difference if we did.
+      $scope.users = [];
+      $scope.addUser = function(){
+        console.log($scope.newUser);
+        $scope.users.push($scope.newUser);
+        $scope.newUser = {};
+        $('#fname').focus();
+      }
+      $scope.removeUser = function(user){
+        console.log($scope.users.indexOf(user));
+        $scope.users.splice($scope.users.indexOf(user), 1);
+        $('#fname').focus();
+      }
+    })
+  </script>
+  <style>
+    .wrapper{
+      width: 500px;
+      margin: 0px auto;
+    }
+    .list table, .list tr, .list th, .list td{
+      border: 1px solid lightgrey;
+    }
+    .list table{
+      border-collapse: collapse;
+    }
+    .add{
+      margin-bottom: 20px;
+    }
+    th, td{
+      padding: 3px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body ng-app='user'>
+  <div class='wrapper'>
+    <div ng-controller='usersController'>
+      <fieldset>
+        <legend>Users Controller</legend>
+        <div class='add'>
+          <form>
+            <table>
+              <tr>
+                <td width=150>First Name:</td><td width=200><input type='text' id='fname' ng-model='newUser.fname'></td><td></td>
+              </tr>
+              <tr>
+                <td>Last Name:</td><td><input type='text' ng-model='newUser.lname'></td><td></td>
+              </tr>
+              <tr>
+                <td>Favorite Language:</td><td><input type='text' ng-model='newUser.flanguage'></td><td><input type='submit' ng-click='addUser()' value='Create User'></td>
+              </tr>
+            </table>
+          </form>
+        </div>
+        <div class='display'>
+          <div class='list'>
+            <table>
+              <tr>
+                <th width=120>First Name</th><th width=120>Last Name</th><th width=160>Fav Language</th><th width=100>Actions</th>
+              </tr>
+              <tr ng-repeat="user in users">
+                <td>{{user.fname}}</td><td>{{user.lname}}</td><td>{{user.flanguage}}</td><td align=center><a ng-click='removeUser(user)'><button>Delete User</button></a></td>
+              </tr>
+            </table>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+	<title>MEAN assignment1</title>
+  <script>
+    var x = [3, 5, 'Dojo', 'rocks', 'Michael', 'Sensei'];
+    var y = [1, 5, 90, 25, -3, 0];
+    function print_array(arr){
+      for(var i=0; i<x.length; i++){
+        console.log(x[i]);
+      }
+    }
+
+    function sum(x){
+      var sum = 0;
+      for(var i=1; i<=x; i++){
+        sum += i;
+      }
+      console.log("The sum from 1 to "+x+" is "+sum);
+    }
+
+    function findMin(y){
+      var min = y[0];
+      for(var i=1; i<y.length; i++){
+        if(y[i] < min){
+          min = y[i];
+        }
+      }
+      console.log("The minimum value of given array is: "+min);
+    }
+
+    function findAve(y){
+      var ave = 0;
+      var sum = 0;
+      for(var i=0; i<y.length; i++){
+        sum += y[i];
+      }
+      ave = sum / y.length;
+      console.log("The average value of given array is: "+ave);
+    }
+    print_array(x);
+    x.push(100);
+    print_array(x);
+    x = ['kb', 'awesome'];
+    print_array(x);
+    sum(500);
+    findMin(y);
+    findAve(y);
+  </script>
+</head>
+<body>
+</body>
+</html>

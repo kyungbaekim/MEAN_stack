@@ -1,0 +1,151 @@
+<html ng-app="name_app">
+<head>
+  <title>1955 API Redux</title>
+  <!-- require angular -->
+  <script type="text/javascript" src='http://code.jquery.com/jquery-2.2.2.js'></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-route.min.js"></script>
+  <script>
+    // Let's create our angular module
+    var name_app = angular.module('name_app', ['ngRoute']);
+    name_app.config(function ($routeProvider) {
+      $routeProvider
+        .when('/edit/:id',{
+          templateUrl: 'partials/edit.html'
+        })
+        .otherwise({
+          templateUrl: 'partials/list.html'
+        });
+    });
+
+    name_app.controller('NamesController', function($scope, NameFactory, $routeParams, $location) {
+      $scope.user_id = $routeParams;
+      console.log($scope.user_id);
+      NameFactory.index(function(data) {
+        $scope.names = data;
+        $('#name').focus();
+      });
+      $scope.addName = function() {
+        NameFactory.create($scope.new_name, function() {
+          //the line below says: set our $scope.friends variable to whatever is returned from FriendFactory.index. In this case, that will be all the friends.
+          $scope.names = NameFactory.index(function(data){
+            $scope.names = data;
+          });
+          $scope.new_name = {};
+          $('#name').focus();
+        });
+      }
+      $scope.removeName = function(name) {
+        console.log(name);
+        NameFactory.remove(name._id, function() {
+          //the line below says: set our $scope.names variable to whatever is returned from NameFactory.index. In this case, that will be all the names.
+          $scope.names = NameFactory.index(function(data){
+            $scope.names = data;
+          });
+          $scope.new_name = {};
+          $('#name').focus();
+        });
+      }
+      $scope.updateName = function(name) {
+        console.log(name);
+        NameFactory.update(name, function() {
+          $scope.names = NameFactory.index(function(data){
+            $scope.names = data;
+          });
+        });
+        $location.url('/');
+      }
+    });
+    // create NameFactory
+    name_app.factory('NameFactory', function($http) {
+      var factory = {};
+      var names = [];
+      //Restful syntax: index = get all that object
+      factory.index = function(callback) {
+        // Where do we get access to $http?
+        $http.get('/names').success(function(data) {
+          console.log('Data received successfully');
+          names = data;
+          callback(names);
+        })
+      }
+      // note the use of callbacks!
+      // Restful syntax: create = add one to DB
+      factory.create = function(info, callback) {
+        console.log(info);
+        $http.post('/add_name', info).success(function() {
+          console.log('Post request sent');
+          $http.get('/names').success(function(data) {
+            names = data;
+            callback(names);
+          })
+        })
+      }
+      // Restful syntax: remove = remove one friend object by given friend name from DB
+      factory.remove = function(data, callback) {
+        $http.post('/remove/' + data).success(function() {
+          console.log('Remove request sent');
+          $http.get('/names').success(function(data) {
+            names = data;
+            callback(names);
+          })
+        })
+      },
+      // Restful syntax: update = update one friend object by given friend id in DB
+      factory.update = function(data, callback) {
+        console.log(data);
+        $http.post('/update/' + data._id, data).success(function() {
+          console.log('Data update request sent');
+          $http.get('/names').success(function(data) {
+            names = data;
+            callback(names);
+          })
+        })
+      }
+      // console.dir(factory);
+      return factory;
+    });
+  </script>
+  <style>
+    .wrapper{
+      width: 500px;
+      /*border: 1px solid silver;*/
+      margin: 0px auto;
+    }
+    .list table, .list th, .list tr, .list td{
+      border: 1px solid grey;
+    }
+    .list table{
+      border-collapse: collapse;
+    }
+    .list th{
+      background-color: lightgrey;
+    }
+    .list th, .list td{
+      padding: 3px;
+    }
+    .add{
+      text-align: right;
+    }
+    p{
+      margin: 20px 0px 5px;
+    }
+    .add{
+      margin-bottom: 20px;
+    }
+    .edit{
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<!-- everything in the body is going to use the name controller (this gives us access to the names controller $scope) -->
+<body>
+  <div class='wrapper'>
+    <div class='title'>
+      <h1>1955 Dashboard</h1>
+      <hr>
+    </div>
+    <div class='body' ng-view=""></div>
+  </div>
+</body>
+</html>

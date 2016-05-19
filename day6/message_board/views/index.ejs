@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <title>Dojo Message Board</title>
+  <style>
+    .wrapper{
+      width: 700px;
+      margin: 0px auto;
+    }
+    .message{
+      width: 660px;
+      margin: 0px auto;
+    }
+    hr{
+      margin-bottom: 30px;
+    }
+    .error{
+      color: red;
+    }
+    .comment{
+      width: 620px;
+      margin-left: 20px;
+    }
+    .subtitle{
+      width: 70px;
+    }
+    .write_comment{
+      margin-left: 20px;
+    }
+    table{
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class='wrapper'>
+    <div class='title'>
+      <h1>The Dojo Message Board</h1>
+      <hr>
+    </div>
+    <div class='message_top'>
+      <% if(typeof(errors) != 'undefined' && errors != null){ %>
+        <table>
+        <% for(x in errors){ %>
+          <tr><td class='error'><%= errors[x].message %></td></tr>
+        <% } %>
+        </table>
+      <% } %>
+      <table>
+        <form action='/add_message' method='post'>
+          <tr><td class='subtitle'>Name:</td></tr>
+          <tr><td><input type='text' name='name'></td></tr>
+          <tr><td class='subtitle'>Message:</td></tr>
+          <tr><td><textarea name='message' cols='90' rows='5'></textarea></td></tr>
+          <tr><td align=right><input type='submit' value='Post message'></td></tr>
+        </form>
+      </table>
+    </div>
+    <% if(typeof(messages) != 'undefined' && messages != null){ %>
+      <% for(i in messages){ %>
+      <div class='message'>
+        <table>
+          <tr><td class='subtitle'>Name:</td><td><%= messages[i].name %></td></tr>
+          <tr><td class='subtitle' valign=top>Message:</td><td><%= messages[i].message %></td></tr>
+          <tr>
+            <table class='comment'>
+              <% for(j in messages[i].comments){ %>
+              <tr><td class='subtitle'>Name:</td><td><%= messages[i].comments[j].name %></td></tr>
+              <tr><td class='subtitle' valign=top>Message:</td><td><%= messages[i].comments[j].comment %></td></tr>
+              <% } %>
+            </table>
+          </tr>
+          <tr>
+            <td>
+              <table class='write_comment'>
+                <form action='/add_comment/<%= messages[i]._id %>' method='post'>
+                  <tr><td class='subtitle'>Name:</td></tr>
+                  <tr><td><input type='text' name='name'></td></tr>
+                  <tr><td class='subtitle'>Comment:</td></tr>
+                  <tr><td><textarea name='comment' cols='80' rows='5'></textarea></td></tr>
+                  <tr><td align=right><input type='submit' value='Post comment'></td></tr>
+                </form>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <% } %>
+    <% } %>
+  </div>
+</body>
+</html>

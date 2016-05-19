@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html ng-app='myApp'>
+  <head>
+    <meta charset="utf-8">
+    <title>Angular Practice</title>
+    <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js'></script>
+    <script>
+      var myAppModule = angular.module('myApp',[]);
+      myAppModule.factory('studentsFactory', function ($scope){
+        var students = [
+          {name: 'Mike', age: 34},
+          {name: 'John', age: 24},
+          {name: 'Trey', age: 24},
+          {name: 'India', age: 35}
+        ];
+        var factory = {};
+        factory.getStudents = function(callback){
+          callback(students);
+        }
+        return factory;
+      });
+      myAppModule.controller('studentsController', function ($scope, studentsFactory){
+        $scope.students = [];
+        studentsFactory.getStudents(function(data){
+          console.log(data);
+          $scope.students = data;
+        })
+      })
+    </script>
+  </head>
+  <body>
+    <div ng-controller='studentsController'>
+      <ul>
+          <li ng-repeat="student in students">{{ student.name }}, {{ student.age }}</li>
+      </ul>
+      <h3>Add a new student!</h3>
+      <form>
+          Name: <input type='text' ng-model='newStudent.name'>
+          Age: <input type='text' ng-model='newStudent.age'>
+          <input type='submit' value='add new student' ng-click='studentsController.addStudent()'>
+      </form>
+    </div>
+  </body>
+</html>

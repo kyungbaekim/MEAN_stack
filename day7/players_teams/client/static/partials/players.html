@@ -1,0 +1,25 @@
+<div ng-controller='PlayersController'>
+  <div class='add'>
+    <form>
+      <table>
+        <tr>
+          <td width=40>Name:</td>
+          <td width=180><input type='text' id='name' ng-model='newPlayer.player' autofocus></td>
+          <td width=280><input type='submit' ng-click='addPlayer()' value='Add Player'></td>
+        </tr>
+      </table>
+    </form>
+  </div>
+  <div class='display'>
+    <div class='list'>
+      <table>
+        <tr>
+          <th width=250>Name</th><th width=250>Actions</th>
+        </tr>
+        <tr ng-repeat="player in players">
+          <td>{{player.player}}</td><td align=center><a ng-click='removePlayer(player)'><button>Remove Player</button></a></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

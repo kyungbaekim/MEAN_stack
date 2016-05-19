@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>DojoQuery</title>
+  </head>
+  <body>
+    <button id='button'>Click Me</button>
+    <script>
+    function $Dojo(element){
+      obj = document.getElementById(element);
+      this.click = function(callback){
+        obj.addEventListener('click', callback);
+      }
+      this.hover = function(callback1, callback2){
+        obj.addEventListener('mouseover', callback1);
+        obj.addEventListener('mouseout', callback2);
+      }
+      return this;
+  	}
+
+    $Dojo('button').click(function() { console.log("The button was clicked!") });
+    $Dojo("button").hover(function() { console.log("Mouseover!") }, function() { console.log("Mouseout!") });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,59 @@
+;<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+	<title>MEAN assignment</title>
+  <script>
+  function vehicleConstructor(name, wheels, passengers, noise, speed){
+    this.name = name;
+    this.number_of_wheels = wheels;
+    this.passengers = passengers;
+    this.makeNoise = function(){
+      console.log(noise);
+    }
+    var self = this;
+    this.pickUpPassengers = function(passengersToPickup){
+      this.number_of_passengers += self.passengersToPickup;
+    }
+    this.move = function(){
+      updateDistanceTravelled(speed);
+      this.makeNoise();
+    }
+    this.checkMiles = function(){
+      console.log(distance_travelled);
+    }
+    var distance_travelled = 0;
+    // var self = this;
+    var updateDistanceTravelled = function(speed){
+      distance_travelled += self.speed;
+      // console.log(distance_travelled);
+    }
+  }
+  var Bike = new vehicleConstructor('Bike', 2, 1, 'ring ring!', 100);
+  console.log(Bike);
+  // Bike.makeNoise();
+  Bike.move(100);
+  Bike.move(100);
+  Bike.move(100);
+  Bike.move(100);
+  Bike.checkMiles();
+
+  var Sedan = new vehicleConstructor('Sedan', 4, 5, 'Honk Honk!', 120);
+  console.log(Sedan);
+  // Sedan.makeNoise();
+  Sedan.move(120);
+  Sedan.move(120);
+  Sedan.move(120);
+  Sedan.checkMiles();
+
+  // var Bus = new vehicleConstructor('Bus', 4, 10, '');
+  // console.log(Bus);
+  // Bus.pickUpPassengers(10);
+  // console.log(Bus);
+
+  // console.log(Bus.distance_travelled);
+  </script>
+</head>
+<body>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<html>
+<head>
+  <title>Quoting Dojo</title>
+  <style>
+    .wrapper{
+      width: 500px;
+      margin: 0px auto;
+    }
+  </style>
+</head>
+<body>
+  <div class='wrapper'>
+    <div class='error'>
+      <h1>Error occurred while saving your quote!</h1>
+    </div>
+      <% for(x in errors){ %>
+        <p><%= errors[x].message %></p>
+      <% } %>
+    </div>
+  </div>
+</body>
+</html>

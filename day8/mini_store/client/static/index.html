@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html ng-app='customer'>
+  <head>
+    <title>Angular Mini Stoer</title>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-route.min.js"></script>
+    <script type="text/javascript" src='http://code.jquery.com/jquery-2.2.2.js'></script>
+    <script type="text/javascript" src='script.js'></script>
+    <style>
+      .wrapper{
+        width: 500px;
+        margin: 0px auto;
+      }
+      .list table, .list tr, .list th, .list td{
+        border: 1px solid grey;
+      }
+      .list table{
+        border-collapse: collapse;
+      }
+      .list th{
+        background-color: lightgrey;
+      }
+      .add{
+        margin-bottom: 20px;
+      }
+      .list th, .list td{
+        padding: 3px;
+        text-align: center;
+      }
+      .body{
+        margin-top: 20px;
+      }
+      .error{
+        font-size: 12px;
+        color: red;
+        margin: 0px;
+      }
+      .search{
+        text-align: right;
+        margin: 20px 0px 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class='wrapper'>
+      <a href="#/">Orders</a> | <a href="#/customers">Customers</a>
+      <div class='body' ng-view=""></div>
+    </div>
+  </body>
+</html>

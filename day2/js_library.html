@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>JavaScript Library</title>
+    <script>
+    var _ = {
+       map: function(arr, callback) {
+         var temp = [];
+         for(var i=0; i<arr.length; i++){
+           temp.push(callback(arr[i]));
+         }
+         return temp;
+       },
+       reduce: function(arr, callback) {
+         var memo = arr[0];
+         for(var i=0; i<arr.length; i++){
+           memo = callback(memo, arr[i]);
+         }
+         return memo;
+       },
+       find: function(arr, callback) {
+         for(var i=0; i<arr.length; i++){
+           if(callback(arr[i])){
+             console.log(arr[i]);
+             return true;
+           }
+         }
+         return false;
+       },
+       filter: function(arr, callback) {
+         var temp = [];
+         for(var i=0; i<arr.length; i++){
+           if(callback(arr[i])){
+             temp.push(arr[i]);
+           }
+         }
+         return temp;
+       },
+       reject: function(arr, callback) {
+         var temp = [];
+         for(var i=0; i<arr.length; i++){
+           if(!callback(arr[i])){
+             temp.push(arr[i]);
+           }
+         }
+         return temp;
+       }
+    }
+
+    var square = _.map([1, 2, 3, 4, 5, 6], function(num) {return num * num;});
+    var multiple = _.reduce([1, 2, 3, 4, 5, 6], function(memo, num) {return memo * num;});
+    var find_even = _.find([1, 2, 3, 4, 5, 6], function(num) {return num % 2 == 0;});
+    var evens = _.filter([1, 2, 3, 4, 5, 6], function(num) {return num % 2 == 0;});
+    var odds = _.reject([1, 2, 3, 4, 5, 6], function(num) {return num % 2 == 0;});
+
+    console.log(square);
+    console.log(multiple);
+    console.log(find_even);
+    console.log(evens);
+    console.log(odds);
+    </script>
+  </head>
+  <body>
+
+  </body>
+</html>

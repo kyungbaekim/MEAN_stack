@@ -1,0 +1,104 @@
+<html ng-app='product'>
+<head>
+  <title>Products Controller</title>
+  <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js'></script>
+  <script type="text/javascript" src='http://code.jquery.com/jquery-2.2.2.js'></script>
+  <script type='text/javascript'>
+
+    $(document).ready(function(){
+      $('#pname').focus();
+    });
+
+    var product = angular.module('product', []);
+    product.factory('productFactory', function(){
+      var products = [{name: 'Keyboard', price: 149.99}];
+      var factory = {};
+      return {
+        getProducts: function(){
+        // getProducts: function(callback){
+          // callback(products);
+          return products;
+        },
+        addProduct: function(newData){
+          products.push(newData);
+          console.log(products);
+        },
+        removeProduct: function(product){
+          products.splice(products.indexOf(product), 1);
+          console.log(products);
+        }
+      }
+    });
+
+    product.controller('productsController', function($scope, productFactory){
+      $scope.products = [];
+      // productFactory.getProducts(function(data){
+      //   console.log(data);
+      //   $scope.products = data;
+      // });
+      $scope.products = productFactory.getProducts();
+      $scope.addProduct = function(){
+        productFactory.addProduct($scope.newProduct);
+        $scope.newProduct = {};
+        $('#pname').focus();
+      }
+      $scope.removeProduct = function(product){
+        productFactory.removeProduct(product);
+        $('#pname').focus();
+      }
+    });
+  </script>
+  <style>
+    .wrapper{
+      width: 500px;
+      margin: 0px auto;
+    }
+    .list table, .list tr, .list th, .list td{
+      border: 1px solid lightgrey;
+    }
+    .list table{
+      border-collapse: collapse;
+    }
+    .add{
+      margin-bottom: 20px;
+    }
+    th, td{
+      padding: 3px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class='wrapper'>
+    <div ng-controller='productsController'>
+      <fieldset>
+        <legend>Products Controller</legend>
+        <div class='add'>
+          <form>
+            <table>
+              <tr>
+                <td width=150>Product Name:</td><td width=200><input type='text' id='pname' ng-model='newProduct.name'></td><td></td>
+              </tr>
+              <tr>
+                <td>Product Price:</td><td><input type='text' ng-model='newProduct.price'></td><td><input type='submit' ng-click='addProduct()' value='Add Product'></td>
+              </tr>
+            </table>
+          </form>
+        </div>
+        <div class='display'>
+          <div class='list'>
+            <table>
+              <tr>
+                <th width=200>Name</th><th width=150>Price</th><th width=150>Actions</th>
+              </tr>
+              <tr ng-repeat="product in products track by $index">
+                <td>{{product.name}}</td><td>${{product.price}}</td><td align=center><a ng-click='removeProduct(product)'><button>Delete Product</button></a></td>
+              </tr>
+            </table>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

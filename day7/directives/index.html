@@ -1,0 +1,64 @@
+<html>
+<head>
+  <title>Products</title>
+  <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js'></script>
+  <script type="text/javascript" src='http://code.jquery.com/jquery-2.2.2.js'></script>
+  <script type='text/javascript'>
+    var str;
+    var food = angular.module('food', []);
+    $(document).ready(function(){
+      $('#food').focus();
+      // $('#food').keyup(function() {
+      //   str = $(this).val();
+      //   console.log(str);
+      //   $('.type').html(str);
+      // });
+    });
+    food.controller('foodsController', function ($scope){
+      $scope.foods = ['Pizza', 'BBQ', 'Fries'];
+      $scope.addFood = function(){
+        $scope.foods.push($scope.newFood);
+        $scope.newFood = '';
+        $('#food').focus();
+      }
+    })
+  </script>
+  <style>
+    .wrapper{
+      width: 700px;
+      margin: 0px auto;
+    }
+    .add, .filter{
+      display: inline-block;
+      vertical-align: top;
+      margin-right: 10px;
+    }
+    .list{
+      margin-top: 10px;
+      border: 1px solid grey;
+    }
+  </style>
+</head>
+<body ng-app='food'>
+  <div class='wrapper'>
+    <div ng-controller='foodsController'>
+      <div class='add'>
+        Favorite Food: <input type='text' id='food' ng-model='newFood'>
+        <input type='submit' ng-click='addFood()' value='Add food'>
+        <!-- <p>Currently typing: <span class='type'></span></p> -->
+        <p>Currently typing: <span ng-bind='newFood'></span></p>
+      </div>
+      <div class='filter'>
+        <input type="text" placeholder='filter...' ng-model="filter_name">
+        <div class='list'>
+          <ul>
+            <li ng-repeat="food in foods | filter:filter_name">
+              {{ food }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<div ng-controller='AssociationsController'>
+  <div class='add'>
+    <form>
+      <table>
+        <tr>
+          <td width=150>
+            <select ng-model='player' ng-options='player.player for player in players'></select>
+          </td>
+          <td width=150>
+            <select ng-model='team' ng-options='team.team for team in teams'></select>
+          </td>
+          <td width=200><input type='submit' ng-click='addAssociation()' value='Assign Player to Team'></td>
+        </tr>
+      </table>
+    </form>
+  </div>
+  <div class='display'>
+    <div class='list'>
+      <table>
+        <tr>
+          <th width=150>Name</th><th width=150>Team</th><th width=200>Actions</th>
+        </tr>
+        <tr ng-repeat='association in associations'>
+          <td>{{association.player}}</td><td><a href='/#/teams/{{association.team}}' ng-bind='association.team'</td><td align=center><a ng-click='removeAssociation(association)'><button>Clear Assignment</button></a></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

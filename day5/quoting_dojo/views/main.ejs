@@ -1,0 +1,43 @@
+<html>
+<head>
+  <title>QuotingDojo</title>
+  <style>
+    .wrapper{
+      width: 500px;
+      margin: 0px auto;
+    }
+    .title{
+      margin-bottom: 20px;
+    }
+    .quote{
+      margin-bottom: 10px;
+    }
+    .errors{
+      margin: 0px auto;
+    }
+  </style>
+</head>
+<body>
+  <div class='wrapper'>
+    <div class='title'>
+      <h1>Here are the awesome quotes!</h1>
+    </div>
+    <div class='errors'>
+      <% if(typeof(errors) != 'undefined') {%>
+        <table><tr><td colspan='2' height='20'></td></tr>
+        <% for(x in errors){ %>
+          <tr><td colspan='2' align=center><%= errors[x].message %></td></tr>
+        <% } %>
+        </table>
+      <% } %>
+    </div>
+    <% for(key in result) {%>
+      <div class='quote'>
+        <p>"<%= result[key].quote %>"</p>
+        <p align=center>-<%= result[key].name %> at <%= result[key].created_at.toUTCString() %></p>
+        <hr>
+      </div>
+    <% } %>
+  </div>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<html>
+<head>
+  <title>Test Form</title>
+  <script type ="text/javascript" src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+  <div class='wrapper'>
+    <div class='data'>
+      <% for(key in result) {%>
+        <p><%= result[key].name %>: <%= result[key].age %></p>
+      <% } %>
+    </div>
+    <form action='/users' method='post'>
+      <table>
+        <tr>
+          <td>Your Name:</td>
+          <td><input type='text' name='name'></td>
+        </tr>
+        <tr>
+          <td>Your Age:</td>
+          <td>
+            <input type='text' name='age'>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input type='submit' value='Submit'>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </div>
+</body>
+</html>

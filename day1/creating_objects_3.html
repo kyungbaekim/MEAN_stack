@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+	<title>MEAN assignment</title>
+  <script>
+  function vehicleConstructor(name, wheels, passengers){
+    this.name = name;
+    this.number_of_wheels = wheels;
+    this.passengers = passengers;
+    this.distance_travelled = 0;
+  }
+
+  vehicleConstructor.prototype.pickUpPassengers = function(passengersToPickup){
+    this.number_of_passengers += passengersToPickup;
+    return this;
+  }
+
+  vehicleConstructor.prototype.makeNoise = function(noise){
+    console.log(noise);
+  }
+
+  vehicleConstructor.prototype.move = function(speed, noise){
+    this.updateDistanceTravelled(speed);
+    this.makeNoise(noise);
+    return this;
+  }
+
+  vehicleConstructor.prototype.checkMiles = function() {
+    console.log("Distance travelled: "+ this.distance_travelled);
+  }
+
+  vehicleConstructor.prototype.updateDistanceTravelled = function(speed){
+    this.distance_travelled += speed;
+    return this;
+  }
+
+  vehicleConstructor.prototype.generateVIN = function(){
+    var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    var text = '';
+    for(var i=0; i<17; i++){
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    return text;
+  }
+
+  var Bike = new vehicleConstructor('Bike', 2, 1);
+  console.log(Bike);
+  Bike.move(100, 'ring ring!').move(100, 'ring ring!').move(100, 'ring ring!').checkMiles();
+
+  var Sedan = new vehicleConstructor('Sedan', 4, 5, 'Honk Honk!', 120);
+  console.log(Sedan);
+  // Sedan.makeNoise();
+  Sedan.move(120, 'Honk Honk!');
+  Sedan.move(120, 'Honk Honk!');
+  Sedan.move(120, 'Honk Honk!');
+  Sedan.checkMiles();
+  console.log(Sedan.generateVIN());
+
+  // var Bus = new vehicleConstructor('Bus', 4, 10, '');
+  // console.log(Bus);
+  // Bus.pickUpPassengers(10);
+  // console.log(Bus);
+
+  // console.log(Bus.distance_travelled);
+  </script>
+</head>
+<body>
+</body>
+</html>

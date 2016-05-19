@@ -1,0 +1,25 @@
+<div ng-controller='TeamsController'>
+  <div class='add'>
+    <form>
+      <table>
+        <tr>
+          <td width=40>Name:</td>
+          <td width=180><input type='text' id='name' ng-model='newTeam.team'></td>
+          <td width=280><input type='submit' ng-click='addTeam()' value='Add New Team'></td>
+        </tr>
+      </table>
+    </form>
+  </div>
+  <div class='display'>
+    <div class='list'>
+      <table>
+        <tr>
+          <th width=250>Team Name</th><th width=250>Actions</th>
+        </tr>
+        <tr ng-repeat="team in teams track by $index">
+          <td><a href='#/teams/{{team.team}}' ng-bind='team.team'></a></td><td align=center><a ng-click='removeTeam($index)'><button>Remove Team</button></a></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

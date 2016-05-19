@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html ng-app='player'>
+  <head>
+    <title>Players and Teams</title>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-route.min.js"></script>
+    <script type="text/javascript" src='http://code.jquery.com/jquery-2.2.2.js'></script>
+    <script>
+    //  inject the ngRoute dependency in the module.
+    var player = angular.module('player', ['ngRoute']);
+    //  use the config method to set up routing:
+    player.config(function ($routeProvider) {
+      $routeProvider
+        .when('/',{
+          templateUrl: 'partials/players.html'
+        })
+        .when('/teams',{
+          templateUrl: 'partials/teams.html'
+        })
+        .when('/teams/:teamname',{
+          templateUrl: 'partials/teams.html'
+        })
+        .when('/associations',{
+          templateUrl: 'partials/associations.html'
+        })
+        .otherwise({
+          redirectTo: '/'
+        });
+    });
+
+    player.factory('playerFactory', function(){
+      var players = [];
+      var factory = {};
+      return {
+        getPlayers: function(callback){
+          callback(players);
+          return factory;
+        },
+        addPlayer: function(newData){
+          players.push(newData);
+        },
+        removePlayer: function(player){
+          players.splice(players.indexOf(player), 1);
+        }
+      }
+    });
+
+    player.factory('teamFactory', function(){
+      var teams = [];
+      var associations = [];
+      var factory = {};
+      return {
+        getTeams: function(callback){
+          callback(teams);
+          return factory;
+        },
+        addTeam: function(newData){
+          teams.push(newData);
+        },
+        removeTeam: function(team){
+          teams.splice(teams.indexOf(team), 1);
+        },
+        getAssociations: function(callback){
+          callback(associations);
+          return factory;
+        },
+        addAssociation: function(player, team){
+          associations.push(angular.extend(player, team));
+        },
+        removeAssociation: function(association){
+          associations.splice(associations.indexOf(association), 1);
+        }
+      }
+    });
+
+    player.controller('PlayersController', function(playerFactory, $scope, $location){
+      $scope.players = [];
+      playerFactory.getPlayers(function(data){
+        $scope.players = data;
+      });
+      $scope.addPlayer = function(){
+        playerFactory.addPlayer($scope.newPlayer);
+        // $scope.newPlayer = {};
+        $location.url('/teams');
+        // $('#name').focus();
+      }
+      $scope.removePlayer = function(player){
+        playerFactory.removePlayer(player);
+        $('#name').focus();
+      }
+    });
+
+    player.controller('TeamsController', function($scope, teamFactory, $routeParams){
+      console.log($routeParams);
+      $scope.teams = [];
+      teamFactory.getTeams(function(data){
+        $scope.teams = data;
+        $('#name').focus();
+      });
+      $scope.addTeam = function(){
+        teamFactory.addTeam($scope.newTeam);
+        $scope.newTeam = {};
+        $('#name').focus();
+      }
+      $scope.removeTeam = function(team){
+        teamFactory.removeTeam(team);
+        $('#name').focus();
+      }
+    });
+
+    player.controller('AssociationsController', function($scope, teamFactory, playerFactory){
+      $scope.players = [];
+      $scope.teams = [];
+      $scope.associations = [];
+      teamFactory.getTeams(function(data){
+        $scope.teams = data;
+      });
+      teamFactory.getAssociations(function(data){
+        $scope.associations = data;
+      });
+      playerFactory.getPlayers(function(data){
+        $scope.players = data;
+      });
+      $scope.addAssociation = function(){
+        teamFactory.addAssociation($scope.player, $scope.team);
+      }
+      $scope.removeAssociation = function(association){
+        teamFactory.removeAssociation(association);
+      }
+    });
+    </script>
+    <style>
+      .wrapper{
+        width: 500px;
+        margin: 0px auto;
+      }
+      .list table, .list tr, .list th, .list td{
+        border: 1px solid lightgrey;
+      }
+      .list table{
+        border-collapse: collapse;
+      }
+      .add{
+        margin-bottom: 20px;
+      }
+      .list th, .list td{
+        padding: 3px;
+        text-align: center;
+      }
+      .body{
+        margin-top: 20px;
+      }
+      a{
+        margin-left: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class='wrapper'>
+      <a href="#/">Players</a> | <a href="#/teams">Teams</a> | <a href="#/associations">Associations</a>
+      <div class='body' ng-view="">
+      </div>
+    </div>
+  </body>
+</html>

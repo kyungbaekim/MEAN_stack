@@ -1,0 +1,82 @@
+<html>
+<head>
+  <title>Mongoose Dashboard</title>
+  <style>
+    .wrapper{
+      width: 500px;
+      margin: 0px auto;
+    }
+    .title{
+      text-align: center;
+    }
+    .form{
+      text-align: right;
+    }
+    table{
+      margin: 0px auto;
+    }
+    table, td, th{
+      border: 1px solid silver;
+      border-collapse: collapse;
+    }
+    td, th{
+      width: 200px;
+      text-align: center;
+    }
+    .add{
+      margin-top: 20px;
+      margin-right: 50px;
+    }
+    .error{
+      color: red;
+    }
+    .action{
+      display: inline-block;
+    }
+    form{
+      margin: 0px;
+    }
+  </style>
+</head>
+<body>
+  <div class='wrapper'>
+    <div class='title'>
+      <h1>Welcome to Animal World</h1>
+    </div>
+    <div class='form'>
+      <% if(typeof(errors) != 'undefined' && errors != null){ %>
+        <table>
+        <% for(x in errors){ %>
+          <tr><td class='error'><%= errors[x].message %></td></tr>
+        <% } %>
+        </table>
+      <% } else { %>
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Action</th>
+        </tr>
+        <% for(x in animals){ %>
+          <tr>
+            <td><a href='/animals/<%= animals[x]._id %>'><%= animals[x].name %></a></td>
+            <td>
+              <div class='action'>
+                <form action='/animals/edit/<%= animals[x]._id %>' method='get'>
+                  <input type='submit' value='Edit'>
+                </form>
+              </div>
+              <div class='action'>
+                <form action='/animals/delete/<%= animals[x]._id %>' method='post'>
+                  <input type='submit' value='Delete'>
+                </form>
+              </div>
+            </td>
+          </tr>
+        <% } %>
+      </table>
+      <a href='/animals/new'><button class='add'>Add an animal</button></a>
+      <% } %>
+    </div>
+  </div>
+</body>
+</html>
