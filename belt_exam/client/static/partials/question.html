@@ -1,0 +1,24 @@
+<div ng-controller='QuestionsController'>
+  <div class='top_content'>
+    <p><a href='#/'>Home</a> | <a href='#/question/{{question._id}}/new_question'>Answer this Question</a></p>
+  </div>
+  <div class='top_logout' ng-controller='UsersController'>
+    <p align='right'><a href='' ng-click='logout()'>Logout</a></p>
+  </div>
+  <div>
+    <div class='display_question'>
+      <h1>{{question.question}}</h1>
+      <p>{{question.description}}</p>
+    </div>
+    <div class='display_answers' ng-repeat='answer in question.answers | orderBy:"like":true'>
+      <div class='question_content'>
+        {{answer._user.name}}:<br>
+        <b>{{answer.answer}}</b><br>
+        {{answer.support}}
+      </div>
+      <div class='like'>
+        {{answer.like}} likes <button ng-click='likeAnswer(answer._id)'>Like!</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>braces</title>
+    <script>
+    function braces(arr){
+      var count1 = 0;
+      var count2 = 0;
+      var count3 = 0;
+      for(var i=0; i<arr.length; i++){
+        if(arr[i] == '{'){
+          count1++;
+        }
+        else if(arr[i] == '}') {
+          count1--;
+          if(count1 < 0){
+            return false;
+          }
+        }
+        if(arr[i] == '['){
+          count2++;
+        }
+        else if(arr[i] == ']') {
+          count2--;
+          if(count2 < 0){
+            return false;
+          }
+        }
+        if(arr[i] == '('){
+          count3++;
+        }
+        else if(arr[i] == ')') {
+          count3--;
+          if(count3 < 0){
+            return false;
+          }
+        }
+      }
+      if(!(count1 == 0 && count2 == 0 && count3 == 0)){
+        console.log('they do not match');
+        console.log(count1, count2, count3);
+        return false;
+      }
+      else {
+        console.log('they match');
+        return true;
+      }
+    }
+
+    var temp1 = '()()({}{}{[][]})';
+    var temp2 = ')))))';
+    var temp3 = '{{{((([[[}}}])])])';
+    console.log(braces(temp1));
+    console.log(braces(temp2));
+    console.log(braces(temp3));
+    </script>
+  </head>
+  <body>
+    braces
+  </body>
+</html>

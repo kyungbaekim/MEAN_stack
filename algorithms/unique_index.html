@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>unique index</title>
+    <script>
+    function unique_index(str){
+      var counter = {};
+      var result = '';
+      for(var i=0; i<str.length; i++){
+        if(str[i] == ' '){
+          continue;
+        } else {
+          if(!counter[str[i]]){
+            counter[str[i]] = {
+              count: 1,
+              index: i
+            };
+          }
+          else {
+            counter[str[i]].count++;
+          }
+        }
+      }
+      for(key in counter){
+        if(counter[key].count == 1){
+          return counter[key].index;
+        }
+      }
+      console.log('No unique character');
+      return false;
+    }
+
+    var temp1 = 'Mississippi';
+    var temp2 = 'google';
+    var temp3 = 'CodingDojo';
+    console.log(unique_index(temp1));
+    console.log(unique_index(temp2));
+    console.log(unique_index(temp3));
+    </script>
+  </head>
+  <body>
+    unique index
+  </body>
+</html>

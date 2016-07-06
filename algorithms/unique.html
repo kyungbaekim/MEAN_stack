@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>unique</title>
+    <script>
+    function unique(str){
+      var counter = {};
+      var result = '';
+      for(var i=0; i<str.length; i++){
+        console.log(str[i]);
+        if(str[i] == ' '){
+          continue;
+        } else {
+          if(!counter[str[i]]){
+            counter[str[i]] = 1;
+          }
+          else {
+            counter[str[i]]++;
+          }
+        }
+      }
+      for(key in counter){
+        result += key;
+      }
+      console.log(counter)
+      return result;
+    }
+
+    var temp1 = 'Mississippi';
+    var temp2 = 'Kyungbae Kim';
+    var temp3 = 'CodingDojo';
+    console.log(unique(temp1));
+    console.log(unique(temp2));
+    console.log(unique(temp3));
+    </script>
+  </head>
+  <body>
+    unique
+  </body>
+</html>

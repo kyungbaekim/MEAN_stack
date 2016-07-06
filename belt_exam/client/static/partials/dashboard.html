@@ -1,0 +1,31 @@
+<div ng-controller='UsersController'>
+  <div class='top_content'>
+    <h1>Welcome, {{user.sessionUser.name}}!</h1>
+  </div>
+  <div class='top_logout'>
+    <p align='right'><a href='' ng-click='logout()'>Logout</a></p>
+  </div>
+</div>
+<div ng-controller='QuestionsController'>
+  <div class='dashboard'>
+    <div>
+      <a href='#/new_question'><u>Add a Question</u></a>
+    </div>
+    <div class='search'>
+      Search: <input type='text' ng-model='search.question' placeholder='search name...'>
+    </div>
+    <div class='list'>
+      <table>
+        <tr>
+          <th width='430'>Question</th>
+          <th width='100'>Answers</th>
+          <th width='150'>Action</th>
+        </tr>
+        <tr ng-repeat='question in questions | filter:search | orderBy:"createdAt":true'>
+          <td ng-bind='question.question'></td>
+          <td align=center ng-bind='question.answers.length'></td>
+          <td align=center><a href='#/question/{{question._id}}'>Show</a>&nbsp;&nbsp;<a href='#/question/{{question._id}}/new_question'>Answer</a></td>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+<div ng-controller='UsersController'>
+  <div class='top_content'>
+    <p><a href='#/'>Home</a></p>
+  </div>
+  <div class='top_logout'>
+    <p align='right'><a href='' ng-click='logout()'>Logout</a></p>
+  </div>
+</div>
+<div ng-controller='QuestionsController'>
+  <div>
+    <div class='add_question'>
+      <h1>New Question</h1>
+      <form>
+        <table>
+          <tr ng-if='question_error'><td></td><td><span class='error'>{{question_error.message}}<span></td></tr>
+          <tr><td>Question:</td><td><textarea ng-model='new_question.question' rows='5' cols='50'></textarea></td></tr>
+          <tr><td>Description:<br>(optional)</td><td><textarea ng-model='new_question.description' rows='5' cols='50'></textarea></td></tr>
+          <tr><td colspan='2' align=right><a href='#/'><input type='button' value='Cancel'></a>&nbsp;<input type='submit' ng-click='addQuestion()'></td></tr>
+        </table>
+      </form>
+    </div>
+  </div>
+</div>

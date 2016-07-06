@@ -1,0 +1,16 @@
+<div ng-controller='UsersController'>
+  <div class='top'>
+    <div>
+      <p align='right'><a href='#/dashboard'>Dashboard</a> | <a href='' ng-click='logout()'>Logout</a></p>
+    </div>
+    <div>
+      <h1>Username: {{searchedUser[0].name}}</h1>
+    </div>
+  </div>
+  <div class='history'>
+    <h3>Posted...</h3>
+    <p>{{searchedUser[0].topics.length}} Topic(s)</p>
+    <p>{{searchedUser[0].posts.length}} Post(s)</p>
+    <p>{{searchedUser[0].comments.length}} Comment(s)</p>
+  </div>
+</div>
